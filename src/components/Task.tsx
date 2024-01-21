@@ -1,11 +1,19 @@
-import PropTypes from 'prop-types';
-import React from 'react';
+import { FC } from 'react';
+import { TaskData } from '../types';
 
-export default function Task({
+type TaskProps = {
+  /** Composition of the task */
+  task: TaskData;
+  /** Event to change the task to archived */
+  onArchiveTask: (id: string) => void;
+  /** Event to change the task to pinned */
+  onPinTask: (id: string) => void;
+};
+const Task: FC<TaskProps> = ({
   task: { id, title, state },
   onArchiveTask,
   onPinTask,
-}) {
+}) => {
   return (
     <div className={`list-item ${state}`}>
       <label
@@ -46,20 +54,6 @@ export default function Task({
       )}
     </div>
   );
-}
-
-Task.propTypes = {
-  /** Composition of the task */
-  task: PropTypes.shape({
-    /** Id of the task */
-    id: PropTypes.string.isRequired,
-    /** Title of the task */
-    title: PropTypes.string.isRequired,
-    /** Current state of the task */
-    state: PropTypes.string.isRequired,
-  }),
-  /** Event to change the task to archived */
-  onArchiveTask: PropTypes.func,
-  /** Event to change the task to pinned */
-  onPinTask: PropTypes.func,
 };
+
+export default Task;
